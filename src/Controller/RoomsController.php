@@ -38,6 +38,11 @@ class RoomsController extends AppController
             'contain' => []
         ]);
         
+        $seances = $this->Showtimes->find('all', array(
+            'fields' => 'DISTINCT Article.user_id',
+            'conditions' => array('Article.status !=' => 'pending')
+        ));
+        
         $this->set('room', $room);
         $this->set('_serialize', ['room']);
     }
