@@ -34,17 +34,21 @@ class RoomsController extends AppController
      */
     public function view($id = null)
     {
-        $room = $this->Rooms->get($id, [
-            'contain' => []
-        ]);
+        $room = $this->Rooms->get($id);
         
-        $seances = $this->Showtimes->find('all', array(
-            'fields' => 'DISTINCT Article.user_id',
-            'conditions' => array('Article.status !=' => 'pending')
-        ));
-        
+        $showtimes = $this->Rooms->Showtimes
+            ->find()
+            ->select(['id', 'movie_id', 'room_id', 'start', 'end'])
+            ->where(['room_id =' => $room->id])
+            ->order(['created' => 'DESC']);
+            
+        $this->set('showtimes', $showtimes);        
         $this->set('room', $room);
         $this->set('_serialize', ['room']);
+        
+        $room = $this->Rooms->get($id, [
+            'contain' => ['Showtimes']
+        ]);
     }
 
     /**
