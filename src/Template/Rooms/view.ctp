@@ -43,9 +43,6 @@
     </table>
     
     
-    <?php 
-        foreach ($showtimes as $showtime):
-    ?>
     
     <div>
     
@@ -54,31 +51,23 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('movie_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('room_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('start') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('end') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Lundi') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Mardi') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Mercredi') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Jeudi') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Vendredi') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Samedi') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Dimanche') ?></th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($showtimes as $showtime): ?>
-            <tr>
-                <td><?= $this->Number->format($showtime->id) ?></td>
-                <td><?= $showtime->movie_id ?></td>
-                <td><?= $room->name?></td>
-                <td><?= h($showtime->start) ?></td>
-                <td><?= h($showtime->end) ?></td>
-            </tr>
-            <?php endforeach; ?>
+            <?php for ($i = 1; $i <= 7; $i++): ?>
+                <tr> 
+                    <?= print_r($showtimesThisWeek[$i])?>
+                </tr>
+            <?php endfor; ?>
         </tbody>
     </table>
     
     </div>
-    
-    <?php
-        endforeach;
-    ?> 
-
-
 </div>
