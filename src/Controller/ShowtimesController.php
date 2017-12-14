@@ -6,7 +6,6 @@ use App\Controller\AppController;
 /**
  * Showtimes Controller
  *
- * @property \App\Model\Table\ShowtimesTable $Showtimes
  *
  * @method \App\Model\Entity\Showtime[] paginate($object = null, array $settings = [])
  */
@@ -20,11 +19,8 @@ class ShowtimesController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Movies', 'Rooms']
-        ];
+        $this->paginate = ['contain' => ['Movies', 'Rooms']];
         $showtimes = $this->paginate($this->Showtimes);
-
         $this->set(compact('showtimes'));
         $this->set('_serialize', ['showtimes']);
     }
@@ -41,7 +37,6 @@ class ShowtimesController extends AppController
         $showtime = $this->Showtimes->get($id, [
             'contain' => []
         ]);
-
         $this->set('showtime', $showtime);
         $this->set('_serialize', ['showtime']);
     }

@@ -11,8 +11,6 @@
         <li><?= $this->Form->postLink(__('Delete Room'), ['action' => 'delete', $room->id], ['confirm' => __('Are you sure you want to delete # {0}?', $room->id)]) ?> </li>
         <li><?= $this->Html->link(__('List Rooms'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Room'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Movies'), ['controller' => 'Movies', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Movies'), ['controller' => 'Movies', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Showtimes'), ['controller' => 'Showtimes', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Showtime'), ['controller' => 'Showtimes', 'action' => 'add']) ?> </li>
     </ul>
@@ -40,34 +38,41 @@
             <th scope="row"><?= __('Modified') ?></th>
             <td><?= h($room->modified) ?></td>
         </tr>
-    </table>
-    
-    
-    
-    <div>
-    
+    </table>    
+</div>
+
+<div class="showtimes index large-9 medium-8 columns content">
     <h3><?= __('Showtimes') ?></h3>
-    
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('Lundi') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Mardi') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Mercredi') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Jeudi') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Vendredi') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Samedi') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Dimanche') ?></th>
+                <th scope="col">Lundi</th>
+                <th scope="col">Mardi</th>
+                <th scope="col">Mercredi</th>
+                <th scope="col">Jeudi</th>
+                <th scope="col">Vendredi</th>
+                <th scope="col">Samedi</th>
+                <th scope="col">Dimanche</th>
             </tr>
         </thead>
         <tbody>
-            <?php for ($i = 1; $i <= 7; $i++): ?>
-                <tr> 
-                    <?= print_r($showtimesThisWeek[$i])?>
-                </tr>
-            <?php endfor; ?>
+            <?php
+            
+                for ($i = 1; $i <= 7; $i++) {
+                    if(empty($showtimesThisWeek[$i])){
+                        print("<td></td>");
+                    }
+                    foreach ($showtimesThisWeek[$i] as $showtime){
+                        
+                        $name = $showtime->movie_id;
+                        $start = $showtime->start->format('H') . 'h/' . $showtime->end->format('H') . 'h';
+                        print("
+                                <td>$name <br>$start</td>
+                        ");
+                    }
+                }
+
+            ?>
         </tbody>
     </table>
-    
-    </div>
 </div>
