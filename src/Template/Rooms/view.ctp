@@ -58,20 +58,19 @@
         <tbody>
             <?php
             
-                for ($i = 1; $i <= 7; $i++) {
-                    if(empty($showtimesThisWeek[$i])){
-                        print("<td></td>");
-                    }
-                    foreach ($showtimesThisWeek[$i] as $showtime){
+                for ($i = 1; $i < 7; $i++) {
+                    if(isset($showtimesThisWeek[$i])){
+                        print("<td>");
+                        foreach ($showtimesThisWeek[$i] as $showtime){
                         
-                        $name = $showtime->movie_id;
-                        $start = $showtime->start->format('H') . 'h/' . $showtime->end->format('H') . 'h';
-                        print("
-                                <td>$name <br>$start</td>
-                        ");
+                            $name = $showtime->movie_id;
+                            $hours = $showtime->start->format('H') . 'h/' . $showtime->end->format('H') . 'h';
+                            print("$name - $hours </br>");
+                        }
+                        print("</td>");
                     }
+                    else print("<td></td>");
                 }
-
             ?>
         </tbody>
     </table>
